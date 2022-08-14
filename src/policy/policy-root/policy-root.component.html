@@ -1,0 +1,46 @@
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>Policy</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="policies$|async as data">
+
+        <mat-table #table [dataSource]="data" matSort>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.policyHolder?.name}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="age">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.policyHolder?.age}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="gender">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.policyHolder?.genderName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="policyNumber">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> PolicyNumber </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.policyNumber}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+                <mat-cell *matCellDef="let element"> <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="edit(element)">
+                <mat-icon>edit</mat-icon>
+              </button> </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+                <mat-cell *matCellDef="let element"> <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="delete(element.policyNumber)" color="warn">
+                <mat-icon>delete</mat-icon>
+              </button> </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+    </mat-card-content>
+</mat-card>
