@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
-  selector: 'experian-get-weather',
-  templateUrl: './weather-get.component.html',
-  styleUrls: ['./weather-get.component.scss'],
+  selector: 'experian-report-weather',
+  templateUrl: './weather-report.component.html',
+  styleUrls: ['./weather-report.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeatherGetComponent {
+export class WeatherReportComponent {
   cities = ["London", "Paris", "Moscow", "New York", "Karachi", "Sydney"];
   countries = [
     {

@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "src/shared/shared.module";
-import { WeatherGetComponent } from "./weather-get.component";
+import { WeatherReportComponent } from "./weather-report.component";
 
 @NgModule({
-  declarations: [WeatherGetComponent],
+  declarations: [WeatherReportComponent],
   imports: [SharedModule],
-  exports: [WeatherGetComponent],
+  exports: [WeatherReportComponent],
 
 })
 export class WeatherModule { }
