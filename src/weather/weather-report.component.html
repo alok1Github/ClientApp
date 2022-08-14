@@ -3,68 +3,75 @@
 </mat-toolbar>
 <div class="content">
     <div class="flex-row-main">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Select City and country </mat-card-title>
+        <form [formGroup]="weatherForm">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Select City and country </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="content">
+                        <div class="flex-row-main">
+                            <mat-form-field class="mr">
+                                <mat-label>Select country</mat-label>
+                                <mat-select formControlName="countryControl">
+                                    <mat-option *ngFor="let country of countries" [value]="country">
+                                        {{country.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Select city</mat-label>
+                                <mat-select formControlName="cityControl">
+                                    <mat-option *ngFor="let city of cities" [value]="city">
+                                        {{city}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="content">
+                        <div class="flex-row-main">
+                            <button mat-raised-button mat-button color="primary" [disabled]="!weatherForm.valid">Get Weather and Teamperature</button>
+                            <button mat-raised-button mat-button color="accent" [disabled]="!weatherForm.valid">Get LocalTime</button>
+                        </div>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
 
+    <div class="main-div">
+        <mat-card class="mat-elevation-z5">
+            <!-- <mat-progress-bar *ngIf="loading" mode="indeterminate" class="top-bar">
+    </mat-progress-bar> -->
+            <mat-card-header>
+                <mat-card-title> weather</mat-card-title>
+                <mat-card-subtitle>Today: </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <div class="content">
-                    <div class="flex-row-main">
-                        <mat-form-field class="mr">
-                            <mat-label>Select country</mat-label>
-                            <mat-select>
-                                <mat-option *ngFor="let country of countries" [value]="country">
-                                    {{country.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Select city</mat-label>
-                            <mat-select>
-                                <mat-option *ngFor="let city of cities" [value]="city">
-                                    {{city}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                <div class="flex-row">
+                    <div class="temp">
+                        <span class="big-text"> C</span>
+                        <span>Feels like </span>
+                        <span> C</span>
+                    </div>
+                    <div class="outlook">
+                        <img class="image" />
+                        <span></span>
                     </div>
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <div class="content">
-                    <div class="flex-row-main">
-                        <button mat-raised-button mat-button color="primary">Get Weather and Teamperature</button>
-                        <button mat-raised-button mat-button color="accent">Get LocalTime</button>
+                <div>
+                    <div>
+                        <button mat-raised-button mat-button color="warn">See temparature in differnt mode</button>
                     </div>
                 </div>
             </mat-card-actions>
         </mat-card>
     </div>
-</div>
-
-<div class="main-div">
-    <mat-card class="mat-elevation-z5">
-        <!-- <mat-progress-bar *ngIf="loading" mode="indeterminate" class="top-bar">
-    </mat-progress-bar> -->
-        <mat-card-header>
-            <mat-card-title> weather</mat-card-title>
-            <mat-card-subtitle>Today: </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="flex-row">
-                <div class="temp">
-                    <span class="big-text"> C</span>
-                    <span>Feels like </span>
-                    <span> C</span>
-                </div>
-                <div class="outlook">
-                    <img class="image" />
-                    <span></span>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</div>
-<mat-toolbar color="accent">
-    Full Stack Lead Developer Tech Test- Alok Tiwari
-</mat-toolbar>
+    <mat-toolbar color="accent">
+        Full Stack Lead Developer Tech Test- Alok Tiwari
+    </mat-toolbar>
