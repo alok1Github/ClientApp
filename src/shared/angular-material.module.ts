@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar'
 
 
 
@@ -19,8 +20,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatTabsModule,
     MatSelectModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatToolbarModule
   ]
 })
 

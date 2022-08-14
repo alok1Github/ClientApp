@@ -8,4 +8,4 @@ import { WeatherGetComponent } from "./weather-get.component";
   exports: [WeatherGetComponent],
 
 })
-export class PolicyModule { }
+export class WeatherModule { }
