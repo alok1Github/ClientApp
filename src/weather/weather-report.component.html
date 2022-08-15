@@ -13,8 +13,8 @@
                         <div class="flex-row-main">
                             <mat-form-field class="mr">
                                 <mat-label>Select country</mat-label>
-                                <mat-select formControlName="countryControl">
-                                    <mat-option *ngFor="let country of countries" [value]="country">
+                                <mat-select formControlName="countryControl" (selectionChange)="onCountryChange($event)">
+                                    <mat-option *ngFor="let country of countries$|async" [value]="country.code">
                                         {{country.name}}
                                     </mat-option>
                                 </mat-select>
@@ -22,8 +22,8 @@
                             <mat-form-field>
                                 <mat-label>Select city</mat-label>
                                 <mat-select formControlName="cityControl">
-                                    <mat-option *ngFor="let city of cities" [value]="city">
-                                        {{city}}
+                                    <mat-option *ngFor="let city of cities$|async" [value]="city">
+                                        {{city.name}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
