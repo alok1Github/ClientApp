@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSelectChange } from "@angular/material/select";
 import { Subject } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { WeatherService } from "./weather-report.service";
+import { WeatherRequest } from "../weather.requestresult";
+import { WeatherService } from "../weather.service";
+
 
 @Component({
   selector: 'experian-report-weather',
@@ -13,25 +15,38 @@ import { WeatherService } from "./weather-report.service";
 })
 export class WeatherReportComponent implements OnInit {
   weatherForm: FormGroup;
-  countries$ = this.service.countries$;
   citySubject = new Subject<string>();
+  reportSubject = new Subject<WeatherRequest>();
+
+  countries$ = this.service.countries$;
+
   cities$ = this.citySubject.asObservable().pipe(
     mergeMap(countryCode => this.service.GetCities(countryCode).pipe(
       map(result => result.cities)
     ))
   )
 
+  weatherReport$ = this.reportSubject.asObservable().pipe(
+    mergeMap(request => this.service.GetWeatherReport(request)));
+
+
   constructor(private fb: FormBuilder, private service: WeatherService) { }
 
   ngOnInit(): void {
     this.weatherForm = this.fb.group({
-      cityControl: [null, Validators.required],
-      countryControl: [null, Validators.required]
+      city: [null, Validators.required],
+      country: [null, Validators.required]
     })
   }
 
   onCountryChange(data: MatSelectChange): void {
     this.citySubject.next(data.value);
+  }
+
+  getWeatherReport(): void {
+    let request = { ...new WeatherRequest(), ...this.weatherForm.value } as WeatherRequest;
+
+    this.reportSubject.next(request);
   }
 
 

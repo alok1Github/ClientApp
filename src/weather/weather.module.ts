@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "src/shared/shared.module";
-import { WeatherReportComponent } from "./weather-report.component";
+import { WeatherReportComponent } from "./report/weather-report.component";
+
 
 @NgModule({
   declarations: [WeatherReportComponent],

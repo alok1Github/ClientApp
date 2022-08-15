@@ -14,16 +14,18 @@
     margin-right: 16px;
 }
 
-// :host {
-//     // display: flex;
-//     justify-content: center;
-//     position: relative;
-// }
-// .top-bar {
-//     position: absolute;
-//     left: 0;
-//     top: 0;
-// }
+:host {
+    // display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.top-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 mat-card {
     width: 350px;
 }

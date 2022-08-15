@@ -13,7 +13,7 @@
                         <div class="flex-row-main">
                             <mat-form-field class="mr">
                                 <mat-label>Select country</mat-label>
-                                <mat-select formControlName="countryControl" (selectionChange)="onCountryChange($event)">
+                                <mat-select formControlName="country" (selectionChange)="onCountryChange($event)">
                                     <mat-option *ngFor="let country of countries$|async" [value]="country.code">
                                         {{country.name}}
                                     </mat-option>
@@ -21,7 +21,7 @@
                             </mat-form-field>
                             <mat-form-field>
                                 <mat-label>Select city</mat-label>
-                                <mat-select formControlName="cityControl">
+                                <mat-select formControlName="city">
                                     <mat-option *ngFor="let city of cities$|async" [value]="city">
                                         {{city.name}}
                                     </mat-option>
@@ -33,8 +33,7 @@
                 <mat-card-actions>
                     <div class="content">
                         <div class="flex-row-main">
-                            <button mat-raised-button mat-button color="primary" [disabled]="!weatherForm.valid">Get Weather and Teamperature</button>
-                            <button mat-raised-button mat-button color="accent" [disabled]="!weatherForm.valid">Get LocalTime</button>
+                            <button mat-raised-button mat-button color="accent" [disabled]="!weatherForm.valid" (click)="getWeatherReport()">Check WeatherAndTeamperature with LocalTime</button>
                         </div>
                     </div>
                 </mat-card-actions>
@@ -42,13 +41,13 @@
         </form>
     </div>
 
-    <div class="main-div">
+    <div class="main-div" *ngIf="weatherReport$|async as report">
         <mat-card class="mat-elevation-z5">
             <!-- <mat-progress-bar *ngIf="loading" mode="indeterminate" class="top-bar">
     </mat-progress-bar> -->
             <mat-card-header>
-                <mat-card-title> weather</mat-card-title>
-                <mat-card-subtitle>Today: </mat-card-subtitle>
+                <mat-card-title> {{report.location.name}}'s weather</mat-card-title>
+                <mat-card-subtitle>Today:{{report.location.localtime | date:'mediumTime'}} </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
                 <div class="flex-row">
