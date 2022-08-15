@@ -52,11 +52,21 @@ export class WeatherReportComponent implements OnInit {
 
   onCountryChange(data: MatSelectChange): void {
     this.citySubject.next(data.value);
+    this.weatherForm.get('city').reset();
   }
 
   getWeatherReport(): void {
-    let request = { ...new WeatherRequest(), ...this.weatherForm.value } as WeatherRequest;
-    this.reportSubject.next(request);
+    if (this.weatherForm.valid && this.weatherForm.dirty) {
+      let request = { ...new WeatherRequest(), ...this.weatherForm.value } as WeatherRequest;
+      this.reportSubject.next(request);
+    }
+  }
+
+  validateMessage(control: string): string {
+    if (this.weatherForm.get(control).hasError('required')) {
+      return `You must enter a ${control}`;
+    }
+    return "";
   }
 
 

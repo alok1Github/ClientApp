@@ -64,6 +64,13 @@ mat-card::ng-deep.mat-card-header-text {
     margin-left: 10px;
 }
 
+.flx-footer {
+    width: 100% !important;
+    position: fixed;
+    color: white;
+    bottom: 0;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;

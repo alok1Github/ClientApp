@@ -18,6 +18,9 @@
                                         {{country.name}}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error *ngIf="this.weatherForm.get('country').invalid">
+                                    {{validateMessage('country')}}
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field>
                                 <mat-label>Select city</mat-label>
@@ -26,6 +29,9 @@
                                         {{city.name}}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error *ngIf="this.weatherForm.get('city').invalid">
+                                    {{validateMessage('city')}}
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <br/>
@@ -42,7 +48,7 @@
                 <mat-card-actions>
                     <div class="content">
                         <div class="flex-row-main">
-                            <button mat-raised-button mat-button color="accent" [disabled]="!weatherForm.valid" (click)="getWeatherReport()">Check WeatherAndTeamperature with LocalTime</button>
+                            <button mat-raised-button mat-button color="accent" (click)="getWeatherReport()">Check Weather & Teamperature with LocalTime</button>
                         </div>
                     </div>
                 </mat-card-actions>
@@ -81,7 +87,8 @@
         <mat-progress-spinner [mode]="indeterminate" [diameter]="150">
         </mat-progress-spinner>
     </div>
-
-    <!-- <mat-toolbar color="accent">
-        Full Stack Lead Developer Tech Test- Alok Tiwari
-    </mat-toolbar> -->
+    <footer class="flx-footer">
+        <mat-toolbar color="accent">
+            Full Stack Lead Developer Tech Test- Alok Tiwari
+        </mat-toolbar>
+    </footer>
