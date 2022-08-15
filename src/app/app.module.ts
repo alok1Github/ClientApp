@@ -11,7 +11,7 @@ import { GlobalHttpInterceptorService } from "src/shared/interceptor/http-error.
 import { WeatherReportComponent } from "src/weather/report/weather-report.component";
 
 const routes: Routes = [
-  { path: 'error', component: GlobalErrorComponent },
+  { path: 'error/:message', component: GlobalErrorComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: WeatherReportComponent }
 ] // To Do : This can in another module in bigger app.

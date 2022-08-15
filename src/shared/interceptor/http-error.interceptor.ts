@@ -13,11 +13,11 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req).pipe(
-      catchError((error) => {
+      catchError((exception) => {
         console.log('error is intercept')
 
-        this.router.navigateByUrl("/error");
-        return throwError(error.message);
+        this.router.navigateByUrl(`/error/${exception.error.ErrorMessage}`);
+        return throwError(exception.message);
       })
     )
   }
