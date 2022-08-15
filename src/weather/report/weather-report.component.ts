@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSelectChange } from "@angular/material/select";
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
 import { WeatherRequest } from "../weather.requestresult";
 import { WeatherService } from "../weather.service";
@@ -17,13 +17,23 @@ export class WeatherReportComponent implements OnInit {
   weatherForm: FormGroup;
   citySubject = new Subject<string>();
   reportSubject = new Subject<WeatherRequest>();
+  loadingSubject = new BehaviorSubject<boolean>(false);
 
+  loading$ = this.loadingSubject.asObservable();
   countries$ = this.service.countries$;
 
   cities$ = this.citySubject.asObservable().pipe(
-    mergeMap(countryCode => this.service.GetCities(countryCode).pipe(
-      map(result => result.cities)
-    ))
+    mergeMap(countryCode => {
+      this.loadingSubject.next(true);
+
+      return this.service.GetCities(countryCode).pipe(
+        map(result => {
+          this.loadingSubject.next(false);
+
+          return result.cities;
+        })
+      )
+    })
   )
 
   weatherReport$ = this.reportSubject.asObservable().pipe(
@@ -45,7 +55,6 @@ export class WeatherReportComponent implements OnInit {
 
   getWeatherReport(): void {
     let request = { ...new WeatherRequest(), ...this.weatherForm.value } as WeatherRequest;
-
     this.reportSubject.next(request);
   }
 
