@@ -44,7 +44,7 @@ export class WeatherService {
     let queryParams = new HttpParams()
       .append("city", request.city.name)
       .append("country", request.country)
-    //.append("TempratureUnit", "1");
+      .append("TempratureUnit", request.tempratureUnit.toString());
 
     return this.http.get<WeatherResult>(this.weatherUrl, { params: queryParams })
       .pipe(shareReplay(1));

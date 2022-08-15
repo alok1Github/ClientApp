@@ -45,7 +45,8 @@ export class WeatherReportComponent implements OnInit {
   ngOnInit(): void {
     this.weatherForm = this.fb.group({
       city: [null, Validators.required],
-      country: [null, Validators.required]
+      country: [null, Validators.required],
+      tempratureUnit: 0
     })
   }
 
