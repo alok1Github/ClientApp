@@ -15,6 +15,7 @@ export class GlobalErrorComponent {
       this.message = params.get('message') ?? 'An unknown error occurred';
     });
   }
+  // TO Do :  This page can be made more fancier
 
 
 }

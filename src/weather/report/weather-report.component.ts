@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSelectChange } from "@angular/material/select";
-import { BehaviorSubject, Subject } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { WeatherRequest } from "../weather.requestresult";
+import { TempratureEnum, WeatherRequest } from "../weather.requestresult";
 import { WeatherService } from "../weather.service";
 
 
@@ -15,20 +14,17 @@ import { WeatherService } from "../weather.service";
 })
 export class WeatherReportComponent implements OnInit {
   weatherForm: FormGroup;
-  citySubject = new Subject<string>();
-  reportSubject = new Subject<WeatherRequest>();
-  loadingSubject = new BehaviorSubject<boolean>(false);
 
-  loading$ = this.loadingSubject.asObservable();
+  loading$ = this.service.loading$;
   countries$ = this.service.countries$;
 
-  cities$ = this.citySubject.asObservable().pipe(
+  cities$ = this.service.cities$.pipe(
     mergeMap(countryCode => {
-      this.loadingSubject.next(true);
+      this.service.onLoading(true);
 
       return this.service.GetCities(countryCode).pipe(
         map(result => {
-          this.loadingSubject.next(false);
+          this.service.onLoading(false);;
 
           return result.cities;
         })
@@ -36,7 +32,7 @@ export class WeatherReportComponent implements OnInit {
     })
   )
 
-  weatherReport$ = this.reportSubject.asObservable().pipe(
+  weatherReport$ = this.service.weatherReport$.pipe(
     mergeMap(request => this.service.GetWeatherReport(request)));
 
 
@@ -46,19 +42,19 @@ export class WeatherReportComponent implements OnInit {
     this.weatherForm = this.fb.group({
       city: [null, Validators.required],
       country: [null, Validators.required],
-      tempratureUnit: 0
+      tempratureUnit: TempratureEnum.Celsius
     })
   }
 
   onCountryChange(data: MatSelectChange): void {
-    this.citySubject.next(data.value);
+    this.service.onCountryChange(data.value);
     this.weatherForm.get('city').reset();
   }
 
   getWeatherReport(): void {
     if (this.weatherForm.valid && this.weatherForm.dirty) {
       let request = { ...new WeatherRequest(), ...this.weatherForm.value } as WeatherRequest;
-      this.reportSubject.next(request);
+      this.service.onWeatherReport(request);
     }
   }
 
@@ -68,6 +64,7 @@ export class WeatherReportComponent implements OnInit {
     }
     return "";
   }
+
 
 
 

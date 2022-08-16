@@ -15,6 +15,8 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((exception) => {
         console.log('error is intercept')
+        // TO Do :  Here we could add logging to DB
+        // TO Do :  differnt message or error pages could be added for error handling.
 
         this.router.navigateByUrl(`/error/${exception.error.ErrorMessage}`);
         return throwError(exception.message);

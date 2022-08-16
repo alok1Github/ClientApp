@@ -1,5 +1,5 @@
 // City and Country Model's
-export interface country {
+export interface Country {
   name: string;
   code: string;
 }
@@ -10,7 +10,7 @@ export interface City {
 }
 
 export interface CityResult {
-  cities: CityResult[]
+  cities: City[]
 }
 
 // Weather modle's
