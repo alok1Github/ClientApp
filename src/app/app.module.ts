@@ -2,7 +2,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PolicyModule } from "src/policy/policy.module";
 import { WeatherModule } from "src/weather/weather.module";
 import { RouterModule, Routes } from "@angular/router";
 import { GlobalErrorComponent } from "src/shared/error/error-global.component";
@@ -20,7 +19,6 @@ const routes: Routes = [
   declarations: [AppComponent, GlobalErrorComponent],
   imports: [BrowserModule,
     BrowserAnimationsModule,
-    PolicyModule,
     WeatherModule,
     RouterModule.forRoot(routes)],
   providers: [

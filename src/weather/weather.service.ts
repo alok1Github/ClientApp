@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of, Subject } from "rxjs";
 import { shareReplay } from "rxjs/operators";
+import { countries } from "src/shared/mock-file/countries-mock-data";
 import { CityResult, Country, WeatherRequest, WeatherResult } from "./weather.requestresult";
 
 @Injectable({
@@ -15,25 +16,8 @@ export class WeatherService {
   private reportSubject = new Subject<WeatherRequest>();
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
-  countries = [
-    {
-      name: "United Kingdom",
-      code: "GB"
-    },
-    {
-      name: "India",
-      code: "IN"
-    },
-    {
-      name: "France",
-      code: "FR"
-    },
-    {
-      name: "Australia",
-      code: "AU"
-    }]
 
-  countries$ = of<Country[]>(this.countries); // To do : Ideally this should had come from API/DB
+  countries$ = of<Country[]>(countries); // To do :This should come from API/DB
   loading$ = this.loadingSubject.asObservable();
   cities$ = this.citySubject.asObservable();
   weatherReport$ = this.reportSubject.asObservable()
