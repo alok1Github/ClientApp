@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSelectChange } from "@angular/material/select";
 import { map, mergeMap } from "rxjs/operators";
 import { TempratureEnum, WeatherRequest } from "../weather.requestresult";
-import { WeatherService } from "../weather.service";
+import { WeatherService } from "../service/weather.service";
 
 
 @Component({

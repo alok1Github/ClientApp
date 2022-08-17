@@ -3,35 +3,16 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
 import { MatSelectChange } from "@angular/material/select";
 import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { Observable, of } from "rxjs";
 import { AngularMaterialModule } from "src/shared/angular-material.module";
-import { CityResult, Country, TempratureEnum, WeatherRequest, WeatherResult } from "../weather.requestresult";
-import { WeatherService } from "../weather.service";
+import { CityResult, Country, TempratureEnum } from "../weather.requestresult";
+import { WeatherService } from "../service/weather.service";
 import { WeatherReportComponent } from "./weather-report.component";
+import { mockCitiesResult, mockCountries, mockService } from "src/shared/mock-file/weather-mock-data";
 
 describe("WeatherReportComponent", () => {
   let fixture: ComponentFixture<WeatherReportComponent>;
   let component: WeatherReportComponent;
   let fromBuilder = new FormBuilder();
-
-  const countries: Country[] = [{ name: "United Kingdom", code: "GB" }, { name: "India", code: "IN" }];
-  const citiesResult: CityResult = { cities: [{ name: "London", id: 123 }, { name: "Edinburgh", id: 234 }] };
-
-  const mockService = {
-    countries$: of(countries),
-    loading$: of(false),
-    cities$: of("GB"),
-    weatherReport$: of(new WeatherRequest()),
-    GetCities(countryCode: string): Observable<CityResult> {
-      return of(citiesResult);
-    },
-    GetWeatherReport(request: WeatherRequest): Observable<WeatherResult> {
-      return;
-    },
-    onLoading(loading: boolean): void { },
-    onCountryChange(city: string): void { },
-    onWeatherReport(request: WeatherRequest): void { }
-  };
 
   beforeEach((() => {
     TestBed.configureTestingModule({
@@ -60,7 +41,7 @@ describe("WeatherReportComponent", () => {
 
       component.countries$.subscribe(data => result = data);
 
-      expect(result).toBe(countries);
+      expect(result).toBe(mockCountries);
     }));
 
     it("Cities should be empty", (() => {
@@ -92,7 +73,7 @@ describe("WeatherReportComponent", () => {
         result.cities = data
       })
 
-      expect(result.cities).toBe(citiesResult.cities);
+      expect(result.cities).toBe(mockCitiesResult.cities);
     }));
 
     it("Cities should be clear/empty before country selection", (() => {

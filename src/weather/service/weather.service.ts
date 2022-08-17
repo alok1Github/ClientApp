@@ -2,27 +2,32 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of, Subject } from "rxjs";
 import { shareReplay } from "rxjs/operators";
-import { countries } from "src/shared/mock-file/countries-mock-data";
-import { CityResult, Country, WeatherRequest, WeatherResult } from "./weather.requestresult";
+import { AppSettingsService } from "src/shared/appsettings.service";
+import { mockCountries } from "src/shared/mock-file/weather-mock-data";
+import { CityResult, Country, WeatherRequest, WeatherResult } from "../weather.requestresult";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
-  private cityUrl = 'https://localhost:7263/api/City/';
-  private weatherUrl = 'https://localhost:7263/api/Weather/';
+  private cityUrl = '';
+  private weatherUrl = '';
 
   private citySubject = new Subject<string>();
   private reportSubject = new Subject<WeatherRequest>();
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
-
-  countries$ = of<Country[]>(countries); // To do :This should come from API/DB
+  countries$ = of<Country[]>(mockCountries); // To do :This should come from API/DB
   loading$ = this.loadingSubject.asObservable();
   cities$ = this.citySubject.asObservable();
   weatherReport$ = this.reportSubject.asObservable()
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private app: AppSettingsService) {
+    this.app.config$.subscribe(url => {
+      this.cityUrl = url.get("cityUrl");
+      this.weatherUrl = url.get("weatherUrl");
+    })
+  }
 
   GetCities(countryCode: string): Observable<CityResult> {
     return this.http.get<CityResult>(this.cityUrl, {
