@@ -8,6 +8,7 @@ import { CityResult, Country, TempratureEnum } from "../weather.requestresult";
 import { WeatherService } from "../service/weather.service";
 import { WeatherReportComponent } from "./weather-report.component";
 import { mockCitiesResult, mockCountries, mockService } from "src/shared/mock-file/weather-mock-data";
+import { of } from "rxjs";
 
 describe("WeatherReportComponent", () => {
   let fixture: ComponentFixture<WeatherReportComponent>;
@@ -82,6 +83,41 @@ describe("WeatherReportComponent", () => {
       let cities = component.weatherForm.get('city').value;
 
       expect(cities).toBeNull();
+    }));
+
+    // To Do : Other test like loader start when country gets selected and stop when city loaded .
+
+  });
+
+  describe("On getWeatherReport", () => {
+
+    it("getWeatherReport service will not get called only if from is invalid and not dirty", (() => {
+      let service = TestBed.inject(WeatherService);
+      let spy = spyOn(service, 'onWeatherReport');
+
+      component.getWeatherReport();
+
+      expect(spy).toHaveBeenCalledTimes(0);
+    }));
+
+    it("getWeatherReport service will get called if from is invalid and not dirty", (() => {
+      component.weatherForm.patchValue({
+        city: 'London',
+        country: 'GB'
+      })
+      component.weatherForm.markAllAsTouched();
+      component.weatherForm.markAsDirty();
+
+      let service = TestBed.inject(WeatherService);
+      let spy = spyOn(service, 'onWeatherReport');
+      let spy2 = spyOn(service, 'GetWeatherReport').and.returnValue(of());
+
+      component.weatherReport$.subscribe();
+
+      component.getWeatherReport();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy2).toHaveBeenCalledTimes(1);
     }));
 
     // To Do : Other test like loader start when country gets selected and stop when city loaded .

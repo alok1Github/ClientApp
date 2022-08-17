@@ -23,7 +23,7 @@ describe("WeatherService", () => {
 
   afterEach(() => contoller.verify());
 
-  it("Should create the component", (() => {
+  it("Should inject the service", (() => {
     expect(service).toBeTruthy();
   }));
 
