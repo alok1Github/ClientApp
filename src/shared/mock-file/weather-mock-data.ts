@@ -51,7 +51,7 @@ export const mockRequest: WeatherRequest = {
 export const mockService = {
   countries$: of(mockCountries),
   loading$: of(false),
-  cities$: of("GB"),
+  countryCode$: of("GB"),
   weatherReport$: of(new WeatherRequest()),
   GetCities(countryCode: string): Observable<CityResult> {
     return of(mockCitiesResult);

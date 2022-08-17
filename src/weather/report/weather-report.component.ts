@@ -18,7 +18,7 @@ export class WeatherReportComponent implements OnInit {
   loading$ = this.service.loading$;
   countries$ = this.service.countries$;
 
-  cities$ = this.service.cities$.pipe(
+  cities$ = this.service.countryCode$.pipe(
     mergeMap(countryCode => {
       this.service.onLoading(true);
 

@@ -13,13 +13,13 @@ export class WeatherService {
   private cityUrl = '';
   private weatherUrl = '';
 
-  private citySubject = new Subject<string>();
+  private countryCodeSubject = new Subject<string>();
   private reportSubject = new Subject<WeatherRequest>();
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   countries$ = of<Country[]>(mockCountries); // To do :This should come from API/DB
   loading$ = this.loadingSubject.asObservable();
-  cities$ = this.citySubject.asObservable();
+  countryCode$ = this.countryCodeSubject.asObservable();
   weatherReport$ = this.reportSubject.asObservable()
 
   constructor(private http: HttpClient, private app: AppSettingsService) {
@@ -51,7 +51,7 @@ export class WeatherService {
   }
 
   onCountryChange(city: string): void {
-    this.citySubject.next(city);
+    this.countryCodeSubject.next(city);
   }
 
   onWeatherReport(request: WeatherRequest): void {

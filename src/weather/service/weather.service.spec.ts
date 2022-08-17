@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { AppSettingsService } from "src/shared/appsettings.service";
 import { WeatherService } from "./weather.service";
 import { mockCitiesResult, mockRequest, mockWeatherResult } from "src/shared/mock-file/weather-mock-data";
+import { WeatherRequest, WeatherResult } from "../weather.requestresult";
 
 describe("WeatherService", () => {
   let contoller: HttpTestingController;
@@ -24,6 +25,33 @@ describe("WeatherService", () => {
 
   it("Should create the component", (() => {
     expect(service).toBeTruthy();
+  }));
+
+  it("onLoading, loader will set to true", (() => {
+    let loading = false
+    service.loading$.subscribe(data => loading = data);
+
+    service.onLoading(true);
+
+    expect(loading).toBe(true);
+  }));
+
+  it("onCountryChange, country code will emit", (() => {
+    let code = 'IN'
+    service.countryCode$.subscribe(data => code = data);
+
+    service.onCountryChange('GB');
+
+    expect(code).toBe('GB');
+  }));
+
+  it("onWeatherReport, weather request will emit", (() => {
+    let request: WeatherRequest;
+    service.weatherReport$.subscribe(data => request = data);
+
+    service.onWeatherReport(mockRequest);
+
+    expect(request).toBe(mockRequest);
   }));
 
   describe("GetCities", () => {
@@ -57,7 +85,6 @@ describe("WeatherService", () => {
   describe("GetWeatherReport", () => {
 
     it("Should called with correct url and parameters", (() => {
-
       service.GetWeatherReport(mockRequest).subscribe();
 
       const url = `${appSetting.Urls.get('weatherUrl')}?city=London&country=GB&TempratureUnit=1`;
@@ -65,7 +92,7 @@ describe("WeatherService", () => {
 
     }));
 
-    it("Should called with correct url and parameters", (() => {
+    it("Should return expected weatherResult", (() => {
       service.GetWeatherReport(mockRequest).subscribe(data => expect(data).toEqual(mockWeatherResult));
 
       const url = appSetting.Urls.get('weatherUrl');
@@ -87,6 +114,9 @@ describe("WeatherService", () => {
     }));
 
   });
+
+  // To do : after http call it should be added describe("GetCountry", () => {});
+
   function commonAssert(url: string, contoller: HttpTestingController, result: any) {
     let httpCall = contoller.expectOne(url);
 
