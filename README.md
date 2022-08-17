@@ -16,6 +16,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
  ## Development server
  Rebuild the solution to downlaod the required packages 
  
- #  API should be up and running web site to work  
+ #  API should be up and running for web site to work  
 
 
