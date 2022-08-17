@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, of, Subject } from "rxjs";
+import { Injectable, OnDestroy } from "@angular/core";
+import { BehaviorSubject, Observable, of, Subject, Subscription } from "rxjs";
 import { shareReplay } from "rxjs/operators";
 import { AppSettingsService } from "src/shared/appsettings.service";
 import { mockCountries } from "src/shared/mock-file/weather-mock-data";
@@ -9,7 +9,8 @@ import { CityResult, Country, WeatherRequest, WeatherResult } from "../weather.r
 @Injectable({
   providedIn: 'root'
 })
-export class WeatherService {
+
+export class WeatherService implements OnDestroy {
   private cityUrl = '';
   private weatherUrl = '';
 
@@ -17,7 +18,9 @@ export class WeatherService {
   private reportSubject = new Subject<WeatherRequest>();
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
-  countries$ = of<Country[]>(mockCountries); // To do :This should come from API/DB
+  private sub: Subscription;
+
+  countries$ = of<Country[]>(mockCountries); // To do : This needs to come from API from API/DB
   loading$ = this.loadingSubject.asObservable();
   countryCode$ = this.countryCodeSubject.asObservable();
   weatherReport$ = this.reportSubject.asObservable()
@@ -58,6 +61,8 @@ export class WeatherService {
     this.reportSubject.next(request);
   }
 
-
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
 
 }

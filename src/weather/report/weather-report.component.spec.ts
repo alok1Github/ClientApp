@@ -58,9 +58,6 @@ describe("WeatherReportComponent", () => {
 
       expect(tempratureUnit).toBe(TempratureEnum.Celsius);
     }));
-
-
-    // To Do : Other test like default radio button checked on page load
   });
 
   describe("On Country selection", () => {
@@ -84,8 +81,6 @@ describe("WeatherReportComponent", () => {
 
       expect(cities).toBeNull();
     }));
-
-    // To Do : Other test like loader start when country gets selected and stop when city loaded .
 
   });
 
@@ -123,5 +118,8 @@ describe("WeatherReportComponent", () => {
     // To Do : Other test like loader start when country gets selected and stop when city loaded .
 
   });
+
+  // To do : Test for validation
+  // To do : Once Country's data comes from server then test needs to be written
 
 });

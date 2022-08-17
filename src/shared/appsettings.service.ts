@@ -12,10 +12,11 @@ export class AppSettingsService {
   //weather
   private weatherUrl = `${this.baseUrl}Weather/`;
 
+  // TO Do : Add end point for country
+
   constructor() {
     this.configSubject.next(this.Urls);
   }
-
 
   private configSubject = new BehaviorSubject<Map<string, string>>(null);
   config$ = this.configSubject.asObservable();

@@ -13,7 +13,7 @@ export interface CityResult {
   cities: City[]
 }
 
-// Weather modle's
+// Weather Model's
 export interface WeatherResult {
   location: Location;
   current: Temprature;

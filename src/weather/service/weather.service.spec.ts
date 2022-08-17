@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { AppSettingsService } from "src/shared/appsettings.service";
 import { WeatherService } from "./weather.service";
 import { mockCitiesResult, mockRequest, mockWeatherResult } from "src/shared/mock-file/weather-mock-data";
-import { WeatherRequest, WeatherResult } from "../weather.requestresult";
+import { WeatherRequest } from "../weather.requestresult";
 
 describe("WeatherService", () => {
   let contoller: HttpTestingController;

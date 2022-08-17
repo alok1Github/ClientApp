@@ -16,12 +16,13 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
       catchError((exception) => {
         console.log('error is intercept')
         // TO Do :  Here we could add logging to DB
-        // TO Do :  differnt message or error pages could be added for error handling.
+        // TO Do :  differnt message or error pages could be added for error handling based on differnt http status codes.
 
         this.router.navigateByUrl(`/error/${exception.error.ErrorMessage}`);
         return throwError(exception.message);
       })
+      // To Do : Write Unit test for this component.
     )
   }
 }
- // To Do : Write Unit test for this component.
+
